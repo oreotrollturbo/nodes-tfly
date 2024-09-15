@@ -1,0 +1,11 @@
+name: NodesTfly
+version: '1.0'
+main: org.oreo.nodesTfly.NodesTfly
+api-version: '1.20'
+
+commands:
+
+  tfly:
+    description: Fly in your town!!
+    usage: /<command>
+    aliases: [tfly]

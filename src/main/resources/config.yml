@@ -1,0 +1,3 @@
+# Groups are the "roles" in luck perms
+# Tldr add the role's names to the list
+allowed-groups: ["oreo"]
