@@ -23,6 +23,9 @@ class TflyCommand(private val plugin : NodesTfly) : CommandExecutor,TabCompleter
                 "disable" ->{
                     plugin.tflyEnabled = false
                     sender.sendMessage("§2Tfly has been disabled for everyone :(")
+                    for (player in Bukkit.getOnlinePlayers()){
+                        player.allowFlight = false
+                    }
                 }
                 "unfly" ->{
                     for (player in Bukkit.getOnlinePlayers()){
