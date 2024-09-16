@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerMoveEvent
 import org.oreo.nodesTfly.NodesTfly
+import org.oreo.nodesTfly.java.GetNodesInfo
 import org.spigotmc.event.entity.EntityMountEvent
 import phonon.nodes.Nodes
 import phonon.nodes.objects.Territory
@@ -19,6 +20,12 @@ class PlayerChangeNode(private val plugin : NodesTfly) : Listener {
         val player = e.player
 
         if (!plugin.isPlayerAllowedToTfly(player) || !player.isFlying) {
+            return
+        }
+
+        if (GetNodesInfo.isWarOn()){
+            player.allowFlight = false
+            player.sendMessage("§cWar is enabled")
             return
         }
 

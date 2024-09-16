@@ -1,11 +1,13 @@
 package org.oreo.nodesTfly.commands
 
+import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
 import org.bukkit.entity.Player
 import org.oreo.nodesTfly.NodesTfly
+import org.oreo.nodesTfly.java.GetNodesInfo
 import phonon.nodes.Nodes
 
 class TflyCommand(private val plugin : NodesTfly) : CommandExecutor,TabCompleter {
@@ -15,12 +17,17 @@ class TflyCommand(private val plugin : NodesTfly) : CommandExecutor,TabCompleter
         if (args?.isNotEmpty() == true && sender.isOp) {
             when (args[0]) {
                 "enable" ->{
-                    plugin.tflyEnabled = true;
+                    plugin.tflyEnabled = true
                     sender.sendMessage("§2Tfly has been enabled for everyone :)")
                 }
                 "disable" ->{
-                    plugin.tflyEnabled = false;
+                    plugin.tflyEnabled = false
                     sender.sendMessage("§2Tfly has been disabled for everyone :(")
+                }
+                "unfly" ->{
+                    for (player in Bukkit.getOnlinePlayers()){
+                        player.allowFlight = false
+                    }
                 }
                 else -> sender.sendMessage("§cSubcommand not recognised please use /tfly <enable|disable>")
             }
@@ -34,6 +41,12 @@ class TflyCommand(private val plugin : NodesTfly) : CommandExecutor,TabCompleter
 
         if (!plugin.isPlayerAllowedToTfly(sender)) {
             sender.sendMessage("§cYou are not allowed to use this command")
+            return true
+        }
+
+        if (GetNodesInfo.isWarOn()){
+            sender.allowFlight = false
+            sender.sendMessage("§cYou cannot fly while war is enabled")
             return true
         }
 
@@ -87,6 +100,7 @@ class TflyCommand(private val plugin : NodesTfly) : CommandExecutor,TabCompleter
 
         completions.add("enable")
         completions.add("disable")
+        completions.add("unfly")
 
         return completions
     }
