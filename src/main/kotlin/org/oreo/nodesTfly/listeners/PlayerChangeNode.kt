@@ -19,7 +19,7 @@ class PlayerChangeNode(private val plugin : NodesTfly) : Listener {
 
         val player = e.player
 
-        if (!plugin.isPlayerAllowedToTfly(player) || !player.isFlying) {
+        if (!plugin.isPlayerAllowedToTfly(player) || !player.isFlying || player.isOp) {
             return
         }
 
