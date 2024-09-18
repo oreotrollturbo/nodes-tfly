@@ -38,7 +38,7 @@ class PlayerShootListener(private val plugin : NodesTfly) : org.bukkit.event.Lis
         }
     }
 
-    fun isShooting(act: Action , player: Player) : Boolean{
+    private fun isShooting(act: Action, player: Player) : Boolean{
 
         val holdingItem = player.inventory.itemInMainHand
 

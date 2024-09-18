@@ -6,6 +6,7 @@ import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
 import org.oreo.nodesTfly.commands.TflyCommand
 import org.oreo.nodesTfly.listeners.PlayerChangeNode
+import org.oreo.nodesTfly.listeners.PlayerShootListener
 
 class NodesTfly : JavaPlugin() {
 
@@ -24,6 +25,7 @@ class NodesTfly : JavaPlugin() {
         }
 
         server.pluginManager.registerEvents(PlayerChangeNode(this),this)
+        server.pluginManager.registerEvents(PlayerShootListener(this),this)
 
         getCommand("tfly")!!.setExecutor(TflyCommand(this))
 
