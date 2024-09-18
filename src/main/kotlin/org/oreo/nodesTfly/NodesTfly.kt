@@ -13,6 +13,8 @@ class NodesTfly : JavaPlugin() {
 
     var tflyEnabled = false
 
+    val isTflying = ArrayList<Player>()
+
     override fun onEnable() {
         val provider = Bukkit.getServicesManager().getRegistration(
             LuckPerms::class.java

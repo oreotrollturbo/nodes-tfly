@@ -30,6 +30,7 @@ class TflyCommand(private val plugin : NodesTfly) : CommandExecutor,TabCompleter
                 "unfly" ->{
                     for (player in Bukkit.getOnlinePlayers()){
                         player.allowFlight = false
+                        plugin.isTflying.remove(player)
                     }
                 }
                 else -> sender.sendMessage("§cSubcommand not recognised please use /tfly <enable|disable>")
@@ -67,8 +68,10 @@ class TflyCommand(private val plugin : NodesTfly) : CommandExecutor,TabCompleter
 
         if (sender.allowFlight){
             sender.sendMessage("§2Town fly is enabled")
+            plugin.isTflying.add(sender)
         } else {
             sender.sendMessage("§2Town fly is disabled")
+            plugin.isTflying.remove(sender)
         }
 
         return true

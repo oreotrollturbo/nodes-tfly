@@ -33,12 +33,13 @@ class PlayerChangeNode(private val plugin : NodesTfly) : Listener {
 
         val player = e.player
 
-        if (!plugin.isPlayerAllowedToTfly(player) || !player.isFlying || player.isOp) {
+        if (!plugin.isPlayerAllowedToTfly(player) || plugin.isTflying.contains(player)) {
             return
         }
 
         if (GetNodesInfo.isWarOn()){
             player.allowFlight = false
+            plugin.isTflying.remove(player)
             player.sendMessage("§cWar is enabled")
             return
         }
@@ -67,6 +68,7 @@ class PlayerChangeNode(private val plugin : NodesTfly) : Listener {
 
         if (fromTerritory != toTerritory){
             player.allowFlight = false
+            plugin.isTflying.remove(player)
             player.sendMessage("§cYou exited your town's territory")
         }
     }
@@ -80,6 +82,7 @@ class PlayerChangeNode(private val plugin : NodesTfly) : Listener {
         }
 
         player.allowFlight = false
+        plugin.isTflying.remove(player)
     }
 
     private fun unleashEntities(player: Player){
@@ -97,6 +100,7 @@ class PlayerChangeNode(private val plugin : NodesTfly) : Listener {
                     entity.setLeashHolder(null)
 
                     player.allowFlight = false
+                    plugin.isTflying.remove(player)
 
                     player.addPotionEffect(PotionEffect(PotionEffectType.POISON, debuffDuration * 20,1))
                     player.addPotionEffect(PotionEffect(PotionEffectType.BLINDNESS, debuffDuration * 20,3))
