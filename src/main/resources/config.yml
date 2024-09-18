@@ -1,3 +1,6 @@
 # Groups are the "roles" in luck perms
 # Tldr add the role's names to the list
 allowed-groups: ["oreo"]
+
+# How long the negative effects last on the player
+fly-abuse-debuff-duration: 4 #In seconds
