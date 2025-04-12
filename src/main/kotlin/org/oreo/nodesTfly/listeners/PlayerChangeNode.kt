@@ -24,7 +24,7 @@ import phonon.nodes.objects.Territory
 import java.util.*
 
 
-class PlayerChangeNode(private val plugin : NodesTfly) : Listener {
+class PlayerChangeNode(private val plugin : NodesTfly, val nodes : Nodes) : Listener {
 
     private val debuffDuration = plugin.config.getInt("fly-abuse-debuff-duration")
 
@@ -62,9 +62,9 @@ class PlayerChangeNode(private val plugin : NodesTfly) : Listener {
 
         unleashEntities(player)
 
-        val fromTerritory: Territory? = Nodes.getTerritoryFromBlock(fromX, fromZ)
+        val fromTerritory: Territory? = nodes.getTerritoryFromBlock(fromX, fromZ)
 
-        val toTerritory: Territory? = Nodes.getTerritoryFromBlock(toX, toZ)
+        val toTerritory: Territory? = nodes.getTerritoryFromBlock(toX, toZ)
 
         if (fromTerritory != toTerritory){
             player.allowFlight = false

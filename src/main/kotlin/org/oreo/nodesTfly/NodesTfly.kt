@@ -7,14 +7,17 @@ import org.bukkit.plugin.java.JavaPlugin
 import org.oreo.nodesTfly.commands.TflyCommand
 import org.oreo.nodesTfly.listeners.PlayerChangeNode
 import org.oreo.nodesTfly.listeners.PlayerShootListener
+import phonon.nodes.Nodes
 
 class NodesTfly : JavaPlugin() {
 
-    val allowedGroups : List<String> = config.getStringList("allowed-groups")
+    private val allowedGroups : List<String> = config.getStringList("allowed-groups")
 
     var tflyEnabled = false
 
     val isTflying = ArrayList<Player>()
+
+    var nodesInstance : Nodes? = null
 
     override fun onEnable() {
         val provider = Bukkit.getServicesManager().getRegistration(
@@ -24,10 +27,16 @@ class NodesTfly : JavaPlugin() {
             val api: LuckPerms = provider.provider
         }
 
-        server.pluginManager.registerEvents(PlayerChangeNode(this),this)
+        nodesInstance = Bukkit.getServicesManager().load(Nodes::class.java)
+        if (nodesInstance == null) {
+            // Handle error: service not registered
+            logger.severe("Nodes not detected!")
+        }
+
+        server.pluginManager.registerEvents(PlayerChangeNode(this,nodesInstance!!),this)
         server.pluginManager.registerEvents(PlayerShootListener(this),this)
 
-        getCommand("tfly")!!.setExecutor(TflyCommand(this))
+        getCommand("tfly")!!.setExecutor(TflyCommand(this,nodesInstance!!))
 
         saveDefaultConfig()
     }

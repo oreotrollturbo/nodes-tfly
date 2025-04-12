@@ -23,7 +23,6 @@ class PlayerShootListener(private val plugin : NodesTfly) : org.bukkit.event.Lis
         e.isCancelled = true
 
         damager.sendMessage("§cYou cannot damage players while using Tfly")
-
     }
 
     @EventHandler
@@ -44,5 +43,4 @@ class PlayerShootListener(private val plugin : NodesTfly) : org.bukkit.event.Lis
 
         return (act == Action.LEFT_CLICK_AIR || act == Action.LEFT_CLICK_BLOCK) && holdingItem.type == Material.WARPED_FUNGUS_ON_A_STICK
     }
-
 }

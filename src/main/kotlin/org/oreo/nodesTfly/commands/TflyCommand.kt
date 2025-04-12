@@ -10,7 +10,7 @@ import org.oreo.nodesTfly.NodesTfly
 import org.oreo.nodesTfly.java.GetNodesInfo
 import phonon.nodes.Nodes
 
-class TflyCommand(private val plugin : NodesTfly) : CommandExecutor,TabCompleter {
+class TflyCommand(private val plugin : NodesTfly, private val nodes : Nodes) : CommandExecutor,TabCompleter {
 
     override fun onCommand(sender: CommandSender, command: Command, p2: String, args: Array<out String>?): Boolean {
 
@@ -79,9 +79,9 @@ class TflyCommand(private val plugin : NodesTfly) : CommandExecutor,TabCompleter
 
     private fun isInTheirTown(player: Player) : Boolean{
 
-        val townTerritory =  Nodes.getResident(player)?.town?.home
+        val townTerritory =  nodes.getResident(player)?.town?.home
 
-        val playerTerritory = Nodes.getTerritoryFromChunk(player.chunk)?.id
+        val playerTerritory = nodes.getTerritoryFromChunk(player.chunk)?.id
 
         return townTerritory == playerTerritory
     }
